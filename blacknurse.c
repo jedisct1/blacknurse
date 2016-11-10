@@ -49,16 +49,18 @@ int main(int argc, char *argv[])
         for (i = 20; i < 20 + 8 + 4; i++) {
             pkt[i] = (uint8_t) rand();
         }
-        if (sendto(kindy, pkt, pkt_len, 0, ai->ai_addr, ai->ai_addrlen)
-            != (ssize_t) pkt_len) {
+        if (sendto(kindy, pkt, pkt_len, 0,
+                   ai->ai_addr, ai->ai_addrlen) != (ssize_t) pkt_len) {
             if (errno == ENOBUFS) {
                 poll(&pfd, 1, 1000);
                 continue;
             }
             perror("sendto");
+            break;
         }
     }
     /* NOTREACHED */
+    close(kindy);
     freeaddrinfo(ai);
 
     return 0;
