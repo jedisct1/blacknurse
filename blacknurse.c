@@ -41,7 +41,6 @@ int main(int argc, char *argv[])
         perror("socket");
         exit(1);
     }
-    setsockopt(kindy, IPPROTO_IP, IP_HDRINCL, & (int[]) {0}, sizeof (int));
     pkt = pkt_template;
     pfd.fd = kindy;
     pfd.events = POLLOUT;
